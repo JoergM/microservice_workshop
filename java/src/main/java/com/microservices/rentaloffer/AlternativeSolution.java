@@ -4,14 +4,13 @@ import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-
-import static com.microservices.rentaloffer.SolutionType.ALTERNATIVE;
+import java.util.Random;
 
 public class AlternativeSolution implements MessageHandler {
 
     protected static Logger logger = LoggerFactory.getLogger(AlternativeSolution.class);
     private static Connections connection;
+    private Random random = new Random();
 
     public static void main(String[] args) {
         String host = args[0];
@@ -24,26 +23,15 @@ public class AlternativeSolution implements MessageHandler {
     public void handle(String message) {
         NeedPacket needPacket = new Gson().fromJson(message, NeedPacket.class);
 
-        if (doesNotAlreadyContainSolution(needPacket)) {
+        if (needPacket.getSolutions().size() == 0) {
             Solution solution = new Solution();
-            solution.setType(ALTERNATIVE);
-            solution.setSolution("Alternative");
+            solution.setSolutionDescription("Alternative");
+            solution.setValue(random.nextInt(100));
 
             needPacket.proposeSolution(solution);
             connection.publish(needPacket.toJson());
         }
 
-    }
-
-    private boolean doesNotAlreadyContainSolution(NeedPacket needPacket) {
-        List<Solution> solutions = needPacket.getSolutions();
-
-        for (Solution solution : solutions) {
-            if (solution.getType() == ALTERNATIVE) {
-                return false;
-            }
-        }
-        return true;
     }
 
 }

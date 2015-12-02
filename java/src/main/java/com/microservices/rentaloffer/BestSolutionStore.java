@@ -1,20 +1,16 @@
 package com.microservices.rentaloffer;
 
 import com.google.gson.Gson;
-import com.google.gson.internal.Streams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
-import java.util.List;
-
-import static com.microservices.rentaloffer.SolutionType.ALTERNATIVE;
 
 public class BestSolutionStore implements MessageHandler {
 
     protected static Logger logger = LoggerFactory.getLogger(BestSolutionStore.class);
     private static Connections connection;
-    private final HashMap<String, String> solutionMap;
+    private final HashMap<String, Solution> solutionMap;
 
     public static void main(String[] args) {
         String host = args[0];
@@ -32,14 +28,23 @@ public class BestSolutionStore implements MessageHandler {
         NeedPacket needPacket = new Gson().fromJson(message, NeedPacket.class);
 
         Solution bestSolution = findBestSolution(needPacket);
-        solutionMap.put(needPacket.id, bestSolution.getSolution());
-        logger.info("Stored Best Solution for " + needPacket.id + " " + bestSolution.getSolution());
+        solutionMap.put(needPacket.id, bestSolution);
+        logger.info("Stored Best Solution for " + needPacket.id + " " + bestSolution.getSolutionDescription());
     }
 
     private Solution findBestSolution(NeedPacket needPacket) {
-        if (needPacket.getSolutions().size() > 0) {
+        Solution currentSolution = solutionMap.get(needPacket.id);
+        if (currentSolution == null) {
             return needPacket.getSolutions().get(0);
-        } else return null;
+        }
+
+        Solution newSolution = needPacket.getSolutions().get(0);
+
+        if (newSolution.getValue() > currentSolution.getValue()) {
+            return newSolution;
+        } else {
+            return currentSolution;
+        }
     }
 
 }

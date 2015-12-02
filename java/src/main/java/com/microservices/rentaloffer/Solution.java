@@ -5,23 +5,24 @@ package com.microservices.rentaloffer;
  */
 public class Solution {
 
-    SolutionType type;
+    String solutionDescription;
+    int value;
 
-    public String getSolution() {
-        return solution;
+    public int getValue() {
+        return value;
     }
 
-    public void setSolution(String solution) {
-        this.solution = solution;
+    public void setValue(int value) {
+        this.value = value;
     }
 
-    String solution;
 
-    public SolutionType getType() {
-        return type;
+    public String getSolutionDescription() {
+        return solutionDescription;
     }
 
-    public void setType(SolutionType type) {
-        this.type = type;
+    public void setSolutionDescription(String solutionDescription) {
+        this.solutionDescription = solutionDescription;
     }
+
 }
