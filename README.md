@@ -10,5 +10,6 @@ Docker was used to run RabbitMQ and the various services (Uganda class)
 * rabbitmq:management image used
 	* docker pull rabbitmq:management
 	* docker run -d -p 5672:5672 -p 15672:15672 --name="rabbitmq" rabbitmq:management
+    * management console is available at DOCKER_HOST:15672 -- user/password is guest/guest
 	* for restarting: docker start rabbitmq
 	* for console dumping: docker logs rabbitmq
