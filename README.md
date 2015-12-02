@@ -7,8 +7,8 @@ Materials for MicroService Workshop
 Docker was used to run RabbitMQ and the various services (Uganda class)
 
 * Boot2Docker used
-* dockerfile/rabbitmq image used
-** docker pull dockerfile/rabbitmq
-** docker run -d -p 5672:5672 -p 15672:15672 --name="rabbitmq" dockerfile/rabbitmq
+* rabbitmq:management image used
+** docker pull rabbitmq:management
+** docker run -d -p 5672:5672 -p 15672:15672 --name="rabbitmq" rabbitmq:management
 ** for restarting: docker start rabbitmq
 ** for console dumping: docker logs rabbitmq
