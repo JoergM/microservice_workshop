@@ -8,6 +8,14 @@ public class Solution {
     String solutionDescription;
     int value;
 
+    public Solution() {
+    }
+
+    public Solution(String solutionDescription, int value) {
+        this.solutionDescription = solutionDescription;
+        this.value = value;
+    }
+
     public int getValue() {
         return value;
     }

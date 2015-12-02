@@ -1,16 +1,18 @@
 package com.microservices.rentaloffer;
 
-import java.rmi.server.UID;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
 import com.google.gson.Gson;
+
+import java.rmi.server.UID;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class NeedPacket {
 
     public final String NEED = "car_rental_offer";
     public String id;
+    public String member;
     private final List<Solution> solutions = new ArrayList<>();
 
     public NeedPacket() {
@@ -23,6 +25,7 @@ public class NeedPacket {
         message.put("need", NEED);
         message.put("solutions", solutions);
         message.put("id", id);
+        message.put("member", member);
         return new Gson().toJson(message);
     }
 
