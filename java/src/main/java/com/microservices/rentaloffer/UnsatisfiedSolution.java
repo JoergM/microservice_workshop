@@ -23,7 +23,7 @@ public class UnsatisfiedSolution implements MessageHandler {
     public void handle(String message) {
         NeedPacket needPacket = new Gson().fromJson(message, NeedPacket.class);
 
-        if (needPacket.getSolutions().size() == 0 && needPacket.member != null) {
+        if (needPacket.getSolutions().size() == 0) {
             Solution solution = new Solution();
             solution.setSolutionDescription("Unsatisfied");
             solution.setValue(random.nextInt(100));

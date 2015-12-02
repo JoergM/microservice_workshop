@@ -24,7 +24,7 @@ public class MembershipService implements MessageHandler {
 
         if (needPacket.member == null && needPacket.getSolutions().isEmpty()) {
             needPacket.member = new Random().nextBoolean() ? "Y" : "N";
-            if (needPacket.member == "Y") {
+            if (needPacket.member.equals("Y")) {
                 connection.publish(needPacket.toJson());
             } else {
                 needPacket.proposeSolution(new Solution("Offer Membership", 100));
